@@ -1,0 +1,35 @@
+x=Wood
+o=Glass
+s=Stone
+-
+sssss
+sssss
+sssss
+sssss
+sssss
+-
+xxxxx
+xx  x
+xx   
+xx  x
+xxxxx
+-
+xxxxx
+xx  x
+xx
+o   x
+xxxxx
+-
+xxxxx
+xx  x
+x
+x   x
+xxxxx
+-
+xxxxx
+xxxxx
+xxxxx
+xxxxx
+xxxxx
+
+

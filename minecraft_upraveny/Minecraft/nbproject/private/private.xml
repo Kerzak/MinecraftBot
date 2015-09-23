@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/eZ/Documents/NetBeansProjects/MinecraftBot/MinecraftBot/src/minecraftbot/InventoryHandler.java</file>
+            <file>file:/C:/Users/eZ/Documents/NetBeansProjects/MinecraftBot/MinecraftBot/src/minecraftbot/build/Buildable.java</file>
+            <file>file:/C:/Users/eZ/Documents/NetBeansProjects/MinecraftBot/MinecraftBot/src/minecraftbot/network/MinecraftOutputStream.java</file>
+            <file>file:/C:/Users/eZ/Documents/NetBeansProjects/MinecraftBot/MinecraftBot/src/minecraftbot/examples/Commentator.java</file>
+            <file>file:/C:/Users/eZ/Documents/NetBeansProjects/MinecraftBot/MinecraftBot/src/minecraftbot/examples/Lumberjack.java</file>
+            <file>file:/C:/Users/eZ/Documents/NetBeansProjects/MinecraftBot/MinecraftBot/src/minecraftbot/ILocated.java</file>
+            <file>file:/C:/Users/eZ/Documents/NetBeansProjects/MinecraftBot/MinecraftBot/src/minecraftbot/examples/EmptyBot.java</file>
+            <file>file:/C:/Users/eZ/Documents/NetBeansProjects/MinecraftBot/MinecraftBot/src/minecraftbot/ItemType.java</file>
+            <file>file:/C:/Users/eZ/Documents/NetBeansProjects/MinecraftBot/MinecraftBot/src/minecraftbot/Locomotion.java</file>
+            <file>file:/C:/Users/eZ/Documents/NetBeansProjects/MinecraftBot/MinecraftBot/src/minecraftbot/MinecraftBotHandler.java</file>
+            <file>file:/C:/Users/eZ/Documents/NetBeansProjects/MinecraftBot/MinecraftBot/src/minecraftbot/Id.java</file>
+            <file>file:/C:/Users/eZ/Documents/NetBeansProjects/MinecraftBot/MinecraftBot/src/minecraftbot/MultiBotLauncher.java</file>
+            <file>file:/C:/Users/eZ/Documents/NetBeansProjects/MinecraftBot/MinecraftBot/src/minecraftbot/examples/Cleaner.java</file>
+            <file>file:/C:/Users/eZ/Documents/NetBeansProjects/MinecraftBot/MinecraftBot/src/minecraftbot/IWorldView.java</file>
+            <file>file:/C:/Users/eZ/Documents/NetBeansProjects/MinecraftBot/MinecraftBot/src/minecraftbot/examples/ResponsiveBot.java</file>
+            <file>file:/C:/Users/eZ/Documents/NetBeansProjects/MinecraftBot/MinecraftBot/src/minecraftbot/entity/EntityHandler.java</file>
+        </group>
+    </open-files>
+</project-private>
