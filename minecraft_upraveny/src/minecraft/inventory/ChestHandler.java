@@ -153,10 +153,10 @@ public class ChestHandler implements IInventoryStorage {
     
     public int getMyInventoryIndex(Id id) {
         for (int i = 0; i < mainInventory.length; i++) {
-            if(mainInventory[i] != null && mainInventory[i].getId().getValue() == id.getValue()) return i + START_INDEX_MAIN_INVENTORY_2;
+            if(mainInventory[i] != null && mainInventory[i].getId() != null && mainInventory[i].getId().getValue() == id.getValue()) return i + START_INDEX_MAIN_INVENTORY_2;
         }
         for (int i = 0; i < hotbar.length; i++) {
-            if(hotbar[i] != null && hotbar[i].getId().getValue() == id.getValue()) return i + START_INDEX_HOTBAR_3;
+            if(hotbar[i] != null && hotbar[i].getId() != null && hotbar[i].getId().getValue() == id.getValue()) return i + START_INDEX_HOTBAR_3;
         }
         return -1;
     }
@@ -195,4 +195,8 @@ public class ChestHandler implements IInventoryStorage {
         else hotbar[index - START_INDEX_HOTBAR_3] = null;
     }
 
+    @Override
+    public InventoryType getInventoryType() {
+        return InventoryType.CHEST;
+    }
 }

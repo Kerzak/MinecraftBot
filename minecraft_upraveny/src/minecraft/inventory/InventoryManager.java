@@ -77,11 +77,6 @@ public class InventoryManager implements IInventoryHandler {
            
             out.write(1);
 
-//            out.write(0);
-//            out.write(1);
-//            out.write(1);
-//            out.write(0);
-//            out.write(0);
             out.write(255);
             out.write(255);
             
@@ -122,23 +117,60 @@ public class InventoryManager implements IInventoryHandler {
         return this.inventoryHandler;
     }
     
+    public boolean isMyInventoryEmpty() {
+        for (int i = currentInventory.getStartIndexMainInventory(); i < currentInventory.getStartIndexMainInventory() + 36; i++) {
+            if (currentInventory.getSlot((short)i) != null) return false;
+        }
+        return true;
+    }
+    
     public void showHotbar(ChatHandler chat) {
-        chat.sendMessage("HOTBAR");
-        for (int i = 0; i < hotbarItems.length; i++) {
-            sleep(1000);
-            if (hotbarItems[i] == null) chat.sendMessage(i + ": EMPTY");
-            else chat.sendMessage(i + " ITEM: " + hotbarItems[i].getId().name() + " COUNT: " + hotbarItems[i].getCount());
+        chat.sendMessage("---HOTBAR---");
+        String hotbar = "";
+        String toBeAdded = "";
+        sleep(1000);
+         for (int i = 0; i < hotbarItems.length; i++) {
+            //sleep(1000);
+            if (hotbarItems[i] == null) toBeAdded = (" **" + i + ": EMPTY** ");
+            else toBeAdded=  " **" + i + " ITEM: " + mainInventoryItems[i].getId().name() + " COUNT: " + mainInventoryItems[i].getCount() + "** ";
+            if (hotbar.length() + toBeAdded.length() > 99) {
+                chat.sendMessage(hotbar);
+                hotbar = toBeAdded;
+                sleep(1000);
+            } else {
+                hotbar += toBeAdded;
+            }
+        }
+        
+        if (!hotbar.equals("")) {
+            chat.sendMessage(hotbar);
         }
     }
     
     public void showInventory(ChatHandler chat) {
-        chat.sendMessage("MAIN INVENTORY");
-        for (int i = 0; i < mainInventoryItems.length; i++) {
-            sleep(1000);
-            if (mainInventoryItems[i] == null) chat.sendMessage(i + ": EMPTY");
-            else chat.sendMessage(i + " ITEM: " + mainInventoryItems[i].getId().name() + " COUNT: " + mainInventoryItems[i].getCount());
-        }
+        chat.sendMessage("---MAIN INVENTORY---");
+        String inventory = "";
+        String toBeAdded = "";
         sleep(1000);
+        for (int i = 0; i < mainInventoryItems.length; i++) {
+            //sleep(1000);
+            if (mainInventoryItems[i] == null) toBeAdded = (" **" + i + ": EMPTY** ");
+            else toBeAdded=  " **" + i + " ITEM: " + mainInventoryItems[i].getId().name() + " COUNT: " + mainInventoryItems[i].getCount() + "** ";
+            if (inventory.length() + toBeAdded.length() > 99) {
+                chat.sendMessage(inventory);
+                inventory = toBeAdded;
+                sleep(1000);
+            } else {
+                inventory += toBeAdded;
+            }
+        }
+        
+        if (!inventory.equals("")) {
+            chat.sendMessage(inventory);
+            sleep(1000);
+        }
+        
+        
         showHotbar(chat);
     }
     
@@ -159,7 +191,7 @@ public class InventoryManager implements IInventoryHandler {
         if (!isItemInChest(id)) throw new MinecraftException(ErrorMessage.M03);
         short itemIndex = currentInventory.getIndex(id);
         short emptyIndex = getFirstEmptyIndex();
-        moveOneItem(itemIndex, emptyIndex,1);
+        moveItem(itemIndex, emptyIndex,1);
         return true;
     }
     
@@ -172,7 +204,7 @@ public class InventoryManager implements IInventoryHandler {
             System.out.println("WB OPEN");
         }
         int itemIndex = ((WorkbenchHandler)currentInventory).getMyInventoryIndex(id);
-        moveOneItem((short)itemIndex, (short) (index + 1),1);
+        moveItem((short)itemIndex, (short) (index + 1),1);
         return true;
     }
     
@@ -186,7 +218,7 @@ public class InventoryManager implements IInventoryHandler {
         }
         int itemIndex = ((ChestHandler)currentInventory).getMyInventoryIndex(id);
         short chestAvailableIndex = ((ChestHandler)currentInventory).getFirstEmptyIndex(id, count);
-        moveOneItem((short)itemIndex,  chestAvailableIndex,count);
+        moveItem((short)itemIndex,  chestAvailableIndex,count);
         return true;
     }
     
@@ -196,11 +228,11 @@ public class InventoryManager implements IInventoryHandler {
         currentInventory.setSlot((byte)0,(byte)0, id.getValue(), (byte)0, (byte)craftedCount);
         Id idResult = currentInventory.getSlot((short)0).getId();
         short availableIndex = getFirstEmptyIndex();
-        moveOneItem((short)0, availableIndex, craftedCount);
+        moveItem((short)0, availableIndex, craftedCount);
         
     }
     
-    public void moveOneItem(short startIndex, short endIndex, int count) {
+    public void moveItem(short startIndex, short endIndex, int count) {
         System.out.println("MOVING ITEM, start index: " + startIndex + " endIndex: " + endIndex);
         Slot oldStartIndexSlot = currentInventory.getSlot(startIndex);
         Slot oldEndIndexSlot = currentInventory.getSlot(endIndex);
@@ -263,9 +295,9 @@ public class InventoryManager implements IInventoryHandler {
 //    }
     
     /**
-     * Only in chest
      * 
-     * @return
+     * 
+     * @return first empty index in personal inventory (main inventory and hotbar)
      * @throws MinecraftException 
      */
     public short getFirstEmptyIndex() throws MinecraftException {
@@ -278,12 +310,27 @@ public class InventoryManager implements IInventoryHandler {
         throw  new MinecraftException(ErrorMessage.M04);
     }
     
+    /**
+     * 
+     * @return first empty index in personal inventory (main inventory and hotbar)
+     * @throws MinecraftException if inventory is empty
+     */
+    public short getFirstNotEmptyIndex() throws MinecraftException {
+        for (short i = 0; i < mainInventoryItems.length; i++) {
+            if(mainInventoryItems[i] != null) return (short)(i + currentInventory.getStartIndexMainInventory());
+        }
+        for (short i = 0; i < hotbarItems.length; i++) {
+            if(hotbarItems[i] != null) return (short)(i + currentInventory.getStartIndexHotbar());
+        }
+        throw  new MinecraftException(ErrorMessage.M08);
+    }
+    
     private void startLeftMouseDrag() {
         System.out.println("START LEFT MOUSE DRAG");
         out0EClickWindow.sendMessageForceEmpty(currentInventory.getWindowId(), (short)-999,(byte) 0, (byte) 5);
     }
     
-     private void endLeftMouseDrag() {
+    private void endLeftMouseDrag() {
          System.out.println("END LEFT MOUSE DRAG");
         out0EClickWindow.sendMessageForceEmpty(currentInventory.getWindowId(), (short)-999,(byte) 2, (byte) 5);
     }
@@ -390,6 +437,7 @@ public class InventoryManager implements IInventoryHandler {
             }
         }
     }
+    
     public void sleep(long millis) {
         try {
             Thread.sleep(millis);
@@ -398,10 +446,13 @@ public class InventoryManager implements IInventoryHandler {
         }
     }
     
+    /**
+     * Drop each item in my inventory and hotbar.
+     */
     public void dropInventory() {
-        //for (int i = currentInventory.getStartIndexMainInventory(); i < currentInventory.getStartIndexMainInventory() + 36; i++) {
-            dropItemAt(currentInventory.getStartIndexMainInventory() + 11);
-        //}
+        for (int i = currentInventory.getStartIndexMainInventory(); i < currentInventory.getStartIndexMainInventory() + 36; i++) {
+            dropItemAt(i);
+        }
     }
     
     public void dropItemAt(int index) {

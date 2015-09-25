@@ -21,7 +21,7 @@ public class Collecting {
     private final HashMap<Integer, Velocity> velocities;
     private final Locomotion locomotion;
     
-    Collecting(HashMap<Integer, Stack> stackList, HashMap<Integer, Velocity> velocities, Locomotion locomotion) {
+    public Collecting(HashMap<Integer, Stack> stackList, HashMap<Integer, Velocity> velocities, Locomotion locomotion) {
         list = stackList;
         this.velocities = velocities;
         this.locomotion = locomotion;

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import minecraft.inventory.InventoryType;
 import minecraft.inventory.Slot;
 import minecraftbot.logger.LogElement;
 import minecraftbot.logger.LogLevel;
@@ -545,5 +546,8 @@ public class InventoryHandler implements IInventoryHandler, IInventoryStorage{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    
+     @Override
+    public InventoryType getInventoryType() {
+        return InventoryType.PLAYER;
+    }
 }

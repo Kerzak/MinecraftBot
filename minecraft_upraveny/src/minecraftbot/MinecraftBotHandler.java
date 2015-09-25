@@ -34,6 +34,8 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import minecraft.commands.CommandParser;
 import minecraft.crafting.Crafting;
 import minecraft.exception.MinecraftException;
@@ -59,8 +61,9 @@ import minecraftbot.packet.out.OutPacket;
 /**
  *
  * @author eZ
+ * @author Kerzak
  */
-public abstract class MinecraftBotHandler {
+public abstract class MinecraftBotHandler extends Thread{
 
     private final byte VERSION = 4;
         
@@ -79,7 +82,7 @@ public abstract class MinecraftBotHandler {
 
     protected int entityId=0;
     protected Locomotion move;
-    public ChatHandler chat;
+    protected ChatHandler chat;
     protected Digging dig;
     protected Building build;
     protected AdvancedBuilding build2;
@@ -100,6 +103,70 @@ public abstract class MinecraftBotHandler {
     
     public static Boolean onGround, initialized;
         
+    public Locomotion getLocomotion() {
+        return this.move;
+    }
+    
+    public ChatHandler getChat() {
+        return this.chat;
+    }
+    
+    public Digging getDigging() {
+        return this.dig;
+    }
+    
+    public Building getBuilding() {
+        return this.build;
+    }
+    
+    public AdvancedBuilding getAdvancedBuilding() {
+        return this.build2;
+    }
+    
+    public GameInfo getGameInfo() {
+        return this.info;
+    }
+    
+    public Navigation getNavigation() {
+        return this.navigation;
+    }
+    
+    public IInventoryView getInventoryView() {
+        return this.inventory;
+    }
+    
+    public IWorldView getWorldView() {
+        return this.world;
+    }
+    
+    public IInventoryStorage getInventoryStorage() {
+        return this.inventoryStorage;
+    }
+    
+    /**
+     * Use inventoryManager instead
+     * @return 
+     */
+    @Deprecated
+    public IInventoryHandler getInventoryHandler() {
+        return this.inventoryHandler;
+    }
+    
+    public PlayerList getPlayerList() {
+        return this.players;
+    }
+    
+    public Collecting getCollecting() {
+        return this.collecting;
+    }
+    
+    public Crafting getCrafting() {
+        return this.crafting;
+    }
+    
+    public InventoryManager getInventoryManager() {
+        return this.inventoryManager;
+    }
     
     
     /**
@@ -118,7 +185,7 @@ public abstract class MinecraftBotHandler {
         try {
             connect(address, port);
             Thread.sleep(250);
-            loop();
+            //loop();
         } catch (IOException | InterruptedException | IllegalAccessException | InstantiationException ex) {
             System.err.println("Could not connect to the server.");
             System.out.println(ex.toString());
@@ -539,6 +606,21 @@ public abstract class MinecraftBotHandler {
             case PlayerLeft:
                 onPlayerDisconnect(msg.getValue("player"));
                 break;        }
+    }
+    
+    @Override
+    public void run() {
+        try {
+            loop();
+        } catch (IOException ex) {
+            Logger.getLogger(MinecraftBotHandler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(MinecraftBotHandler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(MinecraftBotHandler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(MinecraftBotHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

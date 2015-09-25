@@ -25,6 +25,12 @@ public class CommandOpenInventory implements Command {
     
     private int inventoryID;
     
+    /**
+     * 
+     * @param crafting 
+     * @param chat
+     * @param inventoryID 0 for chest, 1 for workbench, 2 for furnace.  
+     */
     public CommandOpenInventory(Crafting crafting, ChatHandler chat, int inventoryID) {
         this.crafting = crafting;
         this.chat = chat;

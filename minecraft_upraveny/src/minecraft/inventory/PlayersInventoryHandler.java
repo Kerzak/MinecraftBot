@@ -160,4 +160,9 @@ public class PlayersInventoryHandler implements IInventoryStorage, IInventoryHan
            hotbar[index - START_INDEX_HOTBAR_5] = null;
        }
     }
+    
+     @Override
+    public InventoryType getInventoryType() {
+        return InventoryType.PLAYER;
+    }
 }

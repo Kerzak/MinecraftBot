@@ -120,4 +120,8 @@ public class WorkbenchHandler implements IInventoryStorage {
             hotbar[index - START_INDEX_HOTBAR_4] = null;
     }
     
+    @Override
+    public InventoryType getInventoryType() {
+        return InventoryType.WORKBENCH;
+    }
 }

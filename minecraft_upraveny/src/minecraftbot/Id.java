@@ -73,16 +73,19 @@ public enum Id {
             ICE (79, ItemType.ICE),
             SNOW_BLOCK (80),
             CACTUS ( 81),
-            CLAY (82),
+            CLAY_BLOCK (82),
             REED (83),
             JUKEBOX(84),
             FENCE (85),
 
+            BLOCK_OF_COAL(173),
+            
             //Items
             IRON_SHOVEL(256, ItemType.SHOVEL),
             IRON_PICKAXE(257, ItemType.PICKAXE),
             IRON_AXE(258, ItemType.AXE),
             COAL(263),
+            IRON_INGOT(265),
             IRON_SWORD(267, ItemType.SWORD),
             WOODEN_SWORD(268, ItemType.SWORD),
             WOODEN_SHOVEL(269, ItemType.SHOVEL),
@@ -105,8 +108,10 @@ public enum Id {
             STONE_HOE(291, ItemType.HOE),
             IRON_HOE(292, ItemType.HOE),
             DIAMOND_HOE(293, ItemType.HOE),
-            GOLDEN_HOE(294, ItemType.HOE);
+            GOLDEN_HOE(294, ItemType.HOE),
             
+            BOOK(340)
+            ;
             
             
             

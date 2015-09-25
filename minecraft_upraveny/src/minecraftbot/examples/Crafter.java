@@ -24,7 +24,7 @@ import minecraftbot.logger.LogLevel;
 public class Crafter extends MinecraftBotHandler {
     static private String myName = "MyBot";
     static private String address = "localhost";
-    static private int port = 3544;
+    static private int port = 3337;
 
     public boolean isRunning = false;
     
@@ -97,6 +97,7 @@ public class Crafter extends MinecraftBotHandler {
      public static void main(String[] args) throws Exception {
         Crafter bot = new Crafter();
         bot.startBot(myName, address, port);
+        bot.start();
     }
      
 }

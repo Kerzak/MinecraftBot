@@ -23,7 +23,9 @@ public enum ErrorMessage {
     /** No pattern exists for this item */
     M06("No pattern exists for this item"),
     /** Not enough resources in chest to craft this item */
-    M07("Not enough resources in chest to craft this item");
+    M07("Not enough resources in chest to craft this item"),
+    /** My inventory is empty */
+    M08("My inventory is empty");
     
     
     private String message;

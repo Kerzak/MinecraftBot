@@ -42,7 +42,7 @@ public class In2DOpenWindow implements IInPacket{
         System.out.println("WINTITLE: " + winTitle);
         this.numberOfSlots = in.readByte();
         System.out.println("number of slots: " + numberOfSlots);
-        if (this.windowId == 11) {
+        if (this.inventoryType == 11) {
             this.entityId = in.readInt();
         }
         inventoryManager.openWindow(windowId, inventoryType, winTitle, numberOfSlots);

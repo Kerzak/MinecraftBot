@@ -6,6 +6,7 @@
 
 package minecraftbot;
 
+import minecraft.inventory.InventoryType;
 import minecraft.inventory.Slot;
 
 /**
@@ -21,6 +22,11 @@ public interface IInventoryStorage {
     
     public byte[] getSlotData(int slot);
     
+    /**
+     * Slot on index given by slot. 
+     * @param slot index of slot
+     * @return slot on index
+     */
     public Slot getSlot(short slot);
     
     public short getIndex(Id id);
@@ -30,4 +36,6 @@ public interface IInventoryStorage {
     public int getStartIndexHotbar();
     
     public void setSlotEmpty(int index);
+    
+    public InventoryType getInventoryType();
 }
