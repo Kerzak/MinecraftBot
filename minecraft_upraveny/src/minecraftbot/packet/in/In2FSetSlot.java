@@ -16,7 +16,7 @@ import minecraftbot.network.MinecraftDataInputStream;
  *
  * @author eZ
  * 
- * //KERZAK: Two implementations for players inventory run concurrently.
+ * //Kerzak: Two implementations for players inventory run concurrently.
  * InventoryManager will replace IInventoryStorage
  */
 public class In2FSetSlot implements IInPacket{
@@ -40,10 +40,12 @@ public class In2FSetSlot implements IInPacket{
         emptyCheck = in.readByte();
         if(emptyCheck<0)
         {
+            System.out.println("EMPTYCHECK < 0");
             inventory.setSlot(type, slot, (byte)-1, (byte)0, (byte)0);    
             inventoryManager.getCurrentInventory().setSlot(type, slot, (byte)-1, (byte)0, (byte)0);     
             return;
         }
+        System.out.println("EMPTYCHECK OK");
         id=in.readByte()+emptyCheck*256;
         count=in.readByte();
         in.readByte();

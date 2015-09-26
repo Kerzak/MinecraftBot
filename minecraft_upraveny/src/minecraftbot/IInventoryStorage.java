@@ -38,4 +38,6 @@ public interface IInventoryStorage {
     public void setSlotEmpty(int index);
     
     public InventoryType getInventoryType();
+    
+    public int getMyInventoryIndex(Id id);
 }

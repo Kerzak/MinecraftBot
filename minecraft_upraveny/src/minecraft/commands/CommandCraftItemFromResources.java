@@ -42,7 +42,7 @@ public class CommandCraftItemFromResources implements Command {
     @Override
     public void execute() {
         try {
-            this.executed = crafting.craft(id, openWorkbench);
+            this.executed = crafting.craftInWorkbench(id, openWorkbench);
         } catch (MinecraftException ex) {
             chat.sendMessage(ex.getMessage());
             this.executed = true;

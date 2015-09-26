@@ -28,7 +28,7 @@ public class CommandCloseInventory implements Command {
 
     @Override
     public void execute() {
-        //TODO: close inventory, may not be needed
+        
     }
     
 }

@@ -5,28 +5,22 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/E:/matfyz/rocnikac/minecraft_upraveny/src/minecraftbot/examples/Crafter.java</file>
-            <file>file:/E:/matfyz/rocnikac/minecraft_upraveny/src/minecraft/commands/CommandDropInventory.java</file>
-            <file>file:/E:/matfyz/rocnikac/minecraft_upraveny/src/minecraft/commands/CommandGetCraftingStack.java</file>
+            <file>file:/E:/matfyz/rocnikac/minecraft_upraveny/src/minecraft/commands/CommandCraftItemWorkbench.java</file>
             <file>file:/E:/matfyz/rocnikac/minecraft_upraveny/src/minecraft/commands/CommandParser.java</file>
-            <file>file:/E:/matfyz/rocnikac/minecraft_upraveny/src/minecraftbot/packet/out/Out0EClickWindow.java</file>
+            <file>file:/E:/matfyz/rocnikac/minecraft_upraveny/src/minecraft/commands/CommandGetCraftingStack.java</file>
+            <file>file:/E:/matfyz/rocnikac/minecraft_upraveny/src/minecraftbot/packet/in/In2FSetSlot.java</file>
             <file>file:/E:/matfyz/rocnikac/minecraft_upraveny/src/minecraft/crafting/Pattern.java</file>
             <file>file:/E:/matfyz/rocnikac/minecraft_upraveny/src/minecraft/crafting/Crafting.java</file>
-            <file>file:/E:/matfyz/rocnikac/minecraft_upraveny/src/minecraft/commands/CommandTakeCraftingResult.java</file>
             <file>file:/E:/matfyz/rocnikac/minecraft_upraveny/src/minecraft/inventory/WorkbenchHandler.java</file>
-            <file>file:/E:/matfyz/rocnikac/minecraft_upraveny/src/minecraftbot/Id.java</file>
-            <file>file:/E:/matfyz/rocnikac/minecraft_upraveny/src/minecraft/exception/ErrorMessage.java</file>
             <file>file:/E:/matfyz/rocnikac/minecraft_upraveny/src/minecraft/commands/CommandGetPatternsAndCraft.java</file>
+            <file>file:/E:/matfyz/rocnikac/minecraft_upraveny/test/crafting/TestsCrafting.java</file>
+            <file>file:/E:/matfyz/rocnikac/minecraft_upraveny/src/minecraft/assertService/AssertService.java</file>
             <file>file:/E:/matfyz/rocnikac/minecraft_upraveny/src/minecraftbot/IInventoryStorage.java</file>
-            <file>file:/E:/matfyz/rocnikac/minecraft_upraveny/src/minecraftbot/MinecraftBotHandler.java</file>
-            <file>file:/E:/matfyz/rocnikac/minecraft_upraveny/src/minecraft/inventory/Slot.java</file>
-            <file>file:/E:/matfyz/rocnikac/minecraft_upraveny/src/minecraft/commands/CommandOpenInventory.java</file>
             <file>file:/E:/matfyz/rocnikac/minecraft_upraveny/src/minecraft/commands/CommandCloseInventory.java</file>
+            <file>file:/E:/matfyz/rocnikac/minecraft_upraveny/src/minecraft/commands/CommandCraftItemInventory.java</file>
             <file>file:/E:/matfyz/rocnikac/minecraft_upraveny/src/minecraft/inventory/InventoryManager.java</file>
-            <file>file:/E:/matfyz/rocnikac/minecraft_upraveny/src/minecraftbot/packet/in/In2DOpenWindow.java</file>
             <file>file:/E:/matfyz/rocnikac/minecraft_upraveny/src/minecraft/inventory/PlayersInventoryHandler.java</file>
-            <file>file:/E:/matfyz/rocnikac/minecraft_upraveny/src/minecraftbot/packet/in/In32ConfirmTransaction.java</file>
-            <file>file:/E:/matfyz/rocnikac/minecraft_upraveny/src/minecraft/commands/CommandCraftItem.java</file>
-            <file>file:/E:/matfyz/rocnikac/minecraft_upraveny/src/minecraft/inventory/ChestHandler.java</file>
+            <file>file:/E:/matfyz/rocnikac/minecraft_upraveny/src/minecraft/commands/CommandStoreItemToWorkbench.java</file>
             <file>file:/E:/matfyz/rocnikac/minecraft_upraveny/src/minecraftbot/InventoryHandler.java</file>
         </group>
     </open-files>

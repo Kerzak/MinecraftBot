@@ -83,12 +83,12 @@ public class Crafting {
     private Location chestLocation;
     
     /**
-     * The location of the workbench that bot uses to craft.
+     * The location of the workbench that bot uses to craftInWorkbench.
      */
     private Location workbenchLocation;
     
     /**
-     * The location of the furnace that bot uses to craft
+     * The location of the furnace that bot uses to craftInWorkbench
      */
     private Location furnaceLocation;
     
@@ -155,15 +155,41 @@ public class Crafting {
      * @return 
      * @throws minecraft.exception.MinecraftException
      */
-    public boolean craft(Id itemId, boolean openWorkbench) throws MinecraftException {
+    public boolean craftInWorkbench(Id itemId, boolean openWorkbench) throws MinecraftException {
         
-        //get blocks needed to craft item
+        //get blocks needed to craftInWorkbench item
         Pattern pattern = Pattern.valueOf(itemId.toString());
         Id[] workbenchPattern = pattern.getWorkbenchPattern();
         for (int i = 0; i < workbenchPattern.length; i++) {
             (new CommandStoreItemToWorkbench(workbenchPattern[i], inventoryManager, i)).execute();
         }
         return true;
+    }
+    
+    /**
+     * Craft item with given id in players inventory. Notice that not every item 
+     * can be crafted in inventory. 
+     * 
+     * @param id Id of item to be crafted
+     */
+    public void craftItemInInventory(Id id) throws MinecraftException {
+        Pattern pattern = Pattern.valueOf(id.toString());
+        if (!pattern.hasInventoryPattern()) {
+            chat.sendMessage(ErrorMessage.M01.toString());
+            return;
+        }
+        Id[] inventoryPattern = pattern.getInventoryPattern();
+        
+        for (int i = 0; i < inventoryPattern.length; i++) {
+            if (inventoryPattern[i].getValue() != Id.NONE.getValue()) {
+                short index = (short) inventoryManager.getCurrentInventory().getMyInventoryIndex(inventoryPattern[i]);
+                inventoryManager.moveItem(index, (short) (i + 1), 1);
+            }
+        }
+        int count = pattern.getCount();
+        inventoryManager.getCurrentInventory().setSlot((byte)0,(byte)0, id.getValue(), (byte)0, (byte)count);
+        short firstEmptyIndex = inventoryManager.getFirstEmptyIndex();
+        inventoryManager.moveItem((short)0, firstEmptyIndex, count);
     }
     
     public boolean openInventory(int inventoryID, boolean openInventory) {

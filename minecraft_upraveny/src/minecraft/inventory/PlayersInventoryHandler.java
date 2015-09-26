@@ -119,21 +119,33 @@ public class PlayersInventoryHandler implements IInventoryStorage, IInventoryHan
 
     @Override
     public short getIndex(Id id) {
-        if(craftingOutput.getId().equals(id)) return 0;
+        if(craftingOutput != null && craftingOutput.getId().getValue() == id.getValue()) return 0;
         for (int i = 0; i < craftingInput.length; i++) {
-            if(craftingInput[i].getId().equals(id)) return (short)(i + START_INDEX_CRAFTING_INPUT_2);
+            if(craftingInput[i] != null && craftingInput[i].getId().getValue() == id.getValue()) return (short)(i + START_INDEX_CRAFTING_INPUT_2);
         }
         for (int i = 0; i < armor.length; i++) {
-            if(armor[i].getId().equals(id)) return (short)(i + START_INDEX_ARMOR_3);
+            if(armor[i] != null && armor[i].getId().getValue() == id.getValue()) return (short)(i + START_INDEX_ARMOR_3);
         }
         for (int i = 0; i < mainInventory.length; i++) {
-            if(mainInventory[i].getId().equals(id)) return (short)(i + START_INDEX_MAIN_INVENTORY_4);
+            if(mainInventory[i] != null && mainInventory[i].getId().getValue() == id.getValue()) return (short)(i + START_INDEX_MAIN_INVENTORY_4);
         }
         for (int i = 0; i < hotbar.length; i++) {
-            if(hotbar[i].getId().equals(id)) return (short)(i + START_INDEX_HOTBAR_5);
+            if(hotbar[i] != null && hotbar[i].getId().getValue() == id.getValue()) return (short)(i + START_INDEX_HOTBAR_5);
         }
         return -1;
         
+    }
+    
+     @Override
+     public int getMyInventoryIndex(Id id) {
+        
+        for (int i = 0; i < mainInventory.length; i++) {
+            if(mainInventory[i] != null && mainInventory[i].getId().getValue() == id.getValue()) return i + START_INDEX_MAIN_INVENTORY_4;
+        }
+        for (int i = 0; i < hotbar.length; i++) {
+            if(hotbar[i] != null && hotbar[i].getId().getValue() == id.getValue()) return i + START_INDEX_HOTBAR_5;
+        }
+        return -1;
     }
 
     @Override

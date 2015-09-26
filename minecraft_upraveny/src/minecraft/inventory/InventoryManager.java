@@ -132,7 +132,7 @@ public class InventoryManager implements IInventoryHandler {
          for (int i = 0; i < hotbarItems.length; i++) {
             //sleep(1000);
             if (hotbarItems[i] == null) toBeAdded = (" **" + i + ": EMPTY** ");
-            else toBeAdded=  " **" + i + " ITEM: " + mainInventoryItems[i].getId().name() + " COUNT: " + mainInventoryItems[i].getCount() + "** ";
+            else toBeAdded=  " **" + i + " ITEM: " + hotbarItems[i].getId().name() + " COUNT: " + hotbarItems[i].getCount() + "** ";
             if (hotbar.length() + toBeAdded.length() > 99) {
                 chat.sendMessage(hotbar);
                 hotbar = toBeAdded;

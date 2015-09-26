@@ -12,12 +12,13 @@ import minecraftbot.Id;
  * 
  * @author Kerzak
  * 
- * Enumerates crafting patterns
+ * Enumerates crafting patterns usable in workbench.
  */
 public enum Pattern {
     
     //(1,Id.NONE,Id.NONE,Id.NONE,Id.NONE,Id.NONE,Id.NONE,Id.NONE,Id.NONE,Id.NONE),
     WOOD (4,Id.LOG,Id.NONE,Id.NONE,Id.NONE,Id.NONE,Id.NONE,Id.NONE,Id.NONE,Id.NONE),
+    WORKBENCH(1,Id.WOOD,Id.WOOD,Id.NONE,Id.WOOD,Id.WOOD,Id.NONE,Id.NONE,Id.NONE,Id.NONE),
     FURNACE (1,Id.COBBLESTONE,Id.COBBLESTONE,Id.COBBLESTONE,Id.COBBLESTONE,Id.NONE,
             Id.COBBLESTONE,Id.COBBLESTONE,Id.COBBLESTONE,Id.COBBLESTONE),
     STICK(4,Id.WOOD,Id.NONE,Id.NONE,Id.WOOD,Id.NONE,Id.NONE,Id.NONE,Id.NONE,Id.NONE),
@@ -84,6 +85,14 @@ public enum Pattern {
     public Id[] getInventoryPattern() throws MinecraftException {
         assertService.assertInventoryPatternExists(inventoryPattern);
         return this.inventoryPattern;
+    }
+    
+    /**
+     * Check whether pattern for inventory exists.
+     * @return TRUE if pattern for inventory exists, FALSE otherwise
+     */
+    public boolean hasInventoryPattern() {
+        return (inventoryPattern != null);
     }
     
     public static boolean hasPattern(String id) {

@@ -37,7 +37,7 @@ public class CommandParser {
             String itemStr = inputArr[2].toUpperCase(Locale.ROOT);
             
             Id id = Id.valueOf(itemStr);
-            return new CommandCraftItem(crafting, id, chat, inventoryManager);
+            return new CommandCraftItemWorkbench(crafting, id, chat, inventoryManager);
         }
         
         if(commandStr.matches("open inventory.*")) {
@@ -77,6 +77,14 @@ public class CommandParser {
             short count = Short.parseShort(inputArr[4]);
             
             return new CommandMoveItem(startIndex, endIndex, count, inventoryManager);
+        }
+        
+        if(commandStr.matches("craft in inventory.*")) {
+            String[] inputArr = commandStr.split("\\s");
+            String itemStr = inputArr[3].toUpperCase(Locale.ROOT);
+            
+            Id id = Id.valueOf(itemStr);
+            return new CommandCraftItemInventory(crafting, inventoryManager, chat, id);
         }
         
         return null;

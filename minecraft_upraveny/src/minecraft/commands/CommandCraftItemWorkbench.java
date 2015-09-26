@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import minecraft.crafting.Crafting;
 import minecraft.exception.MinecraftException;
+import minecraft.inventory.InventoryManager;
 import minecraftbot.ChatHandler;
 import minecraftbot.Id;
 
@@ -17,24 +18,25 @@ import minecraftbot.Id;
  *
  * @author Kerzak
  */
-public class CommandGetPatternsAndCraft implements Command {
-    
+public class CommandCraftItemWorkbench implements Command {
+
     private boolean executed = false;
     
     private Crafting crafting;
     
-    private Stack patterns;
+    private InventoryManager inventoryManager;
     
-    private Id id;
+    Id id;
     
     private ChatHandler chat;
     
-    public CommandGetPatternsAndCraft(Id id, Crafting crafting, ChatHandler chat) {
+    public CommandCraftItemWorkbench(Crafting crafting, Id id, ChatHandler chat, InventoryManager inventoryManager) {
         this.crafting = crafting;
         this.id = id;
         this.chat = chat;
+        this.inventoryManager = inventoryManager;
     }
-
+    
     @Override
     public boolean isExecuted() {
         return this.executed;
@@ -42,15 +44,11 @@ public class CommandGetPatternsAndCraft implements Command {
 
     @Override
     public void execute() {
-        try {
-            patterns = crafting.getCraftingStack(id);
-            while(!patterns.isEmpty()) {
-                crafting.addCommand((CommandCraftItemWorkbench)patterns.pop());
-            }
-        } catch (MinecraftException ex) {
-            chat.sendMessage(ex.getMessage());
-            crafting.cancelCrafting();
-        }
+        //open Chest; TODO: inventory enum
+        crafting.addCommand(new CommandOpenInventory(crafting, chat, 0));
+        //get stack of items that we have to craftInWorkbench to finsh the task
+        crafting.addCommand(new CommandGetCraftingStack(crafting, id, chat, inventoryManager));
+        this.executed = true;
     }
     
 }

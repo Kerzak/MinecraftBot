@@ -550,4 +550,9 @@ public class InventoryHandler implements IInventoryHandler, IInventoryStorage{
     public InventoryType getInventoryType() {
         return InventoryType.PLAYER;
     }
+
+    @Override
+    public int getMyInventoryIndex(Id id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -24,7 +24,7 @@ import minecraftbot.logger.LogLevel;
 public class Crafter extends MinecraftBotHandler {
     static private String myName = "MyBot";
     static private String address = "localhost";
-    static private int port = 3337;
+    static private int port = 11059;
 
     public boolean isRunning = false;
     
