@@ -43,7 +43,7 @@ public class CommandGetPatternsAndCraft implements Command {
     @Override
     public void execute() {
         try {
-            patterns = crafting.getCraftingStack(id);
+            patterns = crafting.getWorkbenchCraftingStack(id);
             while(!patterns.isEmpty()) {
                 crafting.addCommand((CommandCraftItemWorkbench)patterns.pop());
             }

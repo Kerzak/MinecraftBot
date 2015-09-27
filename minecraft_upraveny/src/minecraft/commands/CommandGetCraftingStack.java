@@ -54,7 +54,7 @@ public class CommandGetCraftingStack implements Command {
     @Override
     public void execute() {
         try {
-            craftingStack = crafting.getCraftingStack(id);
+            craftingStack = crafting.getWorkbenchCraftingStack(id);
             while(!this.craftingStack.isEmpty()) {
                 //open Chest; TODO: inventory enum
                 if(first) {

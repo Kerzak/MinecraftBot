@@ -51,7 +51,7 @@ public class WorkbenchHandler implements IInventoryStorage {
     @Override
     public void setSlot(byte type, byte slot, int id, byte meta, byte count) {
         System.out.println("SETTING SLOT type: " + type + " slot: " + slot + " id: " + id + " meta: " + meta + " count: " + count);
-        if (slot != -1) {
+        if (slot != -1 && id != -1 && count > 0) {
             if(slot <= END_INDEX_CRAFTING_OUTPUT_1) 
                 craftingOutput = new Slot(slot, id, count);
             else if (slot <= END_INDEX_CRAFTING_INPUT_2) 

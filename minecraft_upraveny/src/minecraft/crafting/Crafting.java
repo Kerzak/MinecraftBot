@@ -18,6 +18,7 @@ import minecraft.exception.ErrorMessage;
 import minecraft.exception.MinecraftException;
 import minecraft.inventory.ChestHandler;
 import minecraft.inventory.InventoryManager;
+import minecraft.inventory.InventoryType;
 import minecraft.inventory.Slot;
 import minecraft.inventory.WorkbenchHandler;
 import minecraftbot.ChatHandler;
@@ -173,23 +174,32 @@ public class Crafting {
      * @param id Id of item to be crafted
      */
     public void craftItemInInventory(Id id) throws MinecraftException {
-        Pattern pattern = Pattern.valueOf(id.toString());
-        if (!pattern.hasInventoryPattern()) {
-            chat.sendMessage(ErrorMessage.M01.toString());
-            return;
-        }
-        Id[] inventoryPattern = pattern.getInventoryPattern();
-        
-        for (int i = 0; i < inventoryPattern.length; i++) {
-            if (inventoryPattern[i].getValue() != Id.NONE.getValue()) {
-                short index = (short) inventoryManager.getCurrentInventory().getMyInventoryIndex(inventoryPattern[i]);
-                inventoryManager.moveItem(index, (short) (i + 1), 1);
+        Stack craftingStack = getInventoryCraftingStack(id);
+        while (!craftingStack.isEmpty()) {
+            Id currentId = (Id) craftingStack.pop();
+            Pattern pattern = Pattern.valueOf(currentId.toString());
+            if (!pattern.hasInventoryPattern()) {
+                chat.sendMessage(ErrorMessage.M01.toString());
+                return;
+            }
+            Id[] inventoryPattern = pattern.getInventoryPattern();
+
+            for (int i = 0; i < inventoryPattern.length; i++) {
+                if (inventoryPattern[i].getValue() != Id.NONE.getValue()) {
+                    short index = (short) inventoryManager.getCurrentInventory().getMyInventoryIndex(inventoryPattern[i]);
+                    inventoryManager.moveItem(index, (short) (i + 1), 1);
+                }
+            }
+            int count = pattern.getCount();
+            inventoryManager.getCurrentInventory().setSlot((byte)0,(byte)0, currentId.getValue(), (byte)0, (byte)count);
+            short firstEmptyIndex = inventoryManager.getFirstEmptyIndex();
+            inventoryManager.moveItem((short)0, firstEmptyIndex, count);
+            
+            for (int i = 1; i < 5; i++) {
+                inventoryManager.getCurrentInventory().setSlotEmpty(i);
             }
         }
-        int count = pattern.getCount();
-        inventoryManager.getCurrentInventory().setSlot((byte)0,(byte)0, id.getValue(), (byte)0, (byte)count);
-        short firstEmptyIndex = inventoryManager.getFirstEmptyIndex();
-        inventoryManager.moveItem((short)0, firstEmptyIndex, count);
+        
     }
     
     public boolean openInventory(int inventoryID, boolean openInventory) {
@@ -232,11 +242,12 @@ public class Crafting {
     }
     
     /**
-     * 
+     * Some items cannot be crafted directly from resources that bot have. But some of these 
+     * can be crafted by crafting items that are needed to craft our item.
      * @param id
-     * @return array of patterns that will be used for crafting item
+     * @return stack of patterns that will be used for crafting item
      */
-    public Stack getCraftingStack(Id id) throws MinecraftException {
+    public Stack getWorkbenchCraftingStack(Id id) throws MinecraftException {
         Stack result = new Stack();
         Slot[] chestItems = ((ChestHandler)inventoryManager.getCurrentInventory()).getChestItemsCopy();
         System.out.println("+CHEST ITEMS COPY+");
@@ -246,7 +257,7 @@ public class Crafting {
         }
         System.out.println("+CHEST ITEMS COPY+");
         try {
-            result = newStackFloor(result, id, chestItems);
+            result = newStackFloor(result, id, chestItems, InventoryType.WORKBENCH);
         } catch (MinecraftException ex) {
             if (result.size() == 1) throw new MinecraftException(ErrorMessage.M06);
             else throw new MinecraftException(ErrorMessage.M07);
@@ -254,19 +265,43 @@ public class Crafting {
         return result;
     }
     
-    public Stack newStackFloor(Stack oldStack, Id id, Slot[] chestItems) throws MinecraftException {
+    public Stack getInventoryCraftingStack(Id id) throws MinecraftException {
+        Stack result = new Stack<>();
+        Slot[] inventoryCopy = inventoryManager.getMyInventoryCopy();
+        for (int i = 0; i < inventoryCopy.length; i++) {
+            if (inventoryCopy[i] != null) System.out.println("inventory copy: " + inventoryCopy[i].getId());
+        }
+        try {
+            result = newStackFloor(result, id, inventoryCopy, InventoryType.PLAYER);
+        } catch (MinecraftException ex) {
+            throw  new MinecraftException(ErrorMessage.M07);
+        }
+        return result;
+    }
+    
+    
+    public Stack newStackFloor(Stack oldStack, Id id, Slot[] chestItems, InventoryType inventoryType) throws MinecraftException {
         oldStack.push(id);
         System.out.println("NEW ID ON STACK: " + id);
         Pattern pattern = null;
         if (Pattern.hasPattern(id.toString())) pattern = Pattern.valueOf(id.toString());
         else throw new MinecraftException(ErrorMessage.M06);
-        Id[] workbenchPattern = pattern.getWorkbenchPattern();
-        for (int i = 0; i < workbenchPattern.length; i++) {
-            if(!removeIfContains(workbenchPattern[i], chestItems)) {
-                System.out.println("does not contain " + workbenchPattern[i]);
-                oldStack = newStackFloor(oldStack, workbenchPattern[i], chestItems);
+        Id[] patternArray = null;
+        switch(inventoryType) {
+            case WORKBENCH: {
+                patternArray = pattern.getWorkbenchPattern();
+            } break;
+            case PLAYER: {
+                if (pattern.hasInventoryPattern()) patternArray = pattern.getInventoryPattern();
+                else throw new MinecraftException(ErrorMessage.M01);
+            }
+        }
+        for (int i = 0; i < patternArray.length; i++) {
+            if(!removeIfContains(patternArray[i], chestItems)) {
+                System.out.println("does not contain " + patternArray[i]);
+                oldStack = newStackFloor(oldStack, patternArray[i], chestItems, inventoryType);
             } else {
-                System.err.println("contains " + workbenchPattern[i]);
+                System.err.println("contains " + patternArray[i]);
             }
         }
         addCraftedToChestItems(chestItems, id, pattern.getCount());

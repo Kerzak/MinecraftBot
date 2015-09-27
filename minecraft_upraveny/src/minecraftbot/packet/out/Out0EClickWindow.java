@@ -69,6 +69,11 @@ public class Out0EClickWindow extends OutPacket{
             System.out.println("windowId: " + windowId + " slot: " + slot + " button: " + button + " action number: " + actionNumber + " mode: " + mode);
             System.out.println("SLOTDATA: ID: " + slotData.getId().getByteValue() + " COUNT: " + slotData.getCount() + " META: " + slotData.getMeta());
             
+            System.out.println("0E " + Integer.toHexString(windowId) + " " + Integer.toHexString(slot) + " " +
+                    Integer.toHexString(button) + " " + Integer.toHexString(actionNumber) + " " +
+                    Integer.toHexString(mode) + " " + Integer.toHexString(slotData.getId().getValue()) + " " +
+                    Integer.toHexString(slotData.getCount()) + " " + Integer.toHexString(slotData.getMeta())) ;
+            
             out.writeByte((byte)0x0E);
             out.writeByte(windowId);
             out.writeShort(slot);
@@ -91,33 +96,33 @@ public class Out0EClickWindow extends OutPacket{
         }       
     }
     
-     public void sendMessage(byte windowId, short slot, byte button, int actionNumber, byte mode, Slot slotData)
-    {
-        try {
-            ByteArrayOutputStream bOut = new ByteArrayOutputStream(7);
-            DataOutputStream out1 = new DataOutputStream(bOut);
-            out1.writeShort((short)slotData.getId().getValue());
-            out1.writeByte((byte)slotData.getCount());
-            out1.writeByte((byte)0);
-            out1.writeByte(slotData.getMeta());
-            out1.writeByte((byte)0xff);
-            out1.writeByte((byte)0xff);
-            System.out.println("windowId: " + windowId + " slot: " + slot + " button: " + button + " action number: " + actionNumber + " mode: " + mode);
-            System.out.println("SLOTDATA: ID: " + slotData.getId().getByteValue() + " COUNT: " + slotData.getCount() + " META: " + slotData.getMeta());
-            
-            out.writeByte((byte)0x0E);
-            out.writeByte(windowId);
-            out.writeShort(slot);
-            out.writeByte(button);
-            out.writeShort(actionNumber);
-            out.writeByte(mode);
-            out.write(bOut.toByteArray());
-            out.closePacket();
-        } catch (IOException ex) {
-            System.err.println("IO Exception while requesting window click.");
-            System.exit(0);
-        }            
-    }
+//     public void sendMessage(byte windowId, short slot, byte button, int actionNumber, byte mode, Slot slotData)
+//    {
+//        try {
+//            ByteArrayOutputStream bOut = new ByteArrayOutputStream(7);
+//            DataOutputStream out1 = new DataOutputStream(bOut);
+//            out1.writeShort((short)slotData.getId().getValue());
+//            out1.writeByte((byte)slotData.getCount());
+//            out1.writeByte((byte)0);
+//            out1.writeByte(slotData.getMeta());
+//            out1.writeByte((byte)0xff);
+//            out1.writeByte((byte)0xff);
+//            System.out.println("windowId: " + windowId + " slot: " + slot + " button: " + button + " action number: " + actionNumber + " mode: " + mode);
+//            System.out.println("SLOTDATA: ID: " + slotData.getId().getByteValue() + " COUNT: " + slotData.getCount() + " META: " + slotData.getMeta());
+//            
+//            out.writeByte((byte)0x0E);
+//            out.writeByte(windowId);
+//            out.writeShort(slot);
+//            out.writeByte(button);
+//            out.writeShort(actionNumber);
+//            out.writeByte(mode);
+//            out.write(bOut.toByteArray());
+//            out.closePacket();
+//        } catch (IOException ex) {
+//            System.err.println("IO Exception while requesting window click.");
+//            System.exit(0);
+//        }            
+//    }
    
      public void sendMessageForceEmpty(byte windowId, short slot, byte button, byte mode)
     {
@@ -129,6 +134,10 @@ public class Out0EClickWindow extends OutPacket{
             actionNumber++;
             //System.out.println("windowId: " + windowId + " slot: " + slot + " button: " + button + " action number: " + actionNumber + " mode: " + mode);
             //System.out.println("SLOTDATA: ID: " + slotData.getId().getByteValue() + " COUNT: " + slotData.getCount() + " META: " + slotData.getMeta());
+            
+            System.out.println("0E " + Integer.toHexString(windowId) + " " + Integer.toHexString(slot) + " " +
+                    Integer.toHexString(button) + " " + Integer.toHexString(actionNumber) + " " +
+                    Integer.toHexString(mode) + " ") ;
             
             out.writeByte((byte)0x0E);
             out.writeByte(windowId);

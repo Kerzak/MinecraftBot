@@ -24,7 +24,7 @@ public class TestsCrafting {
     /**
      * It is necessary to set this port before connecting to a new server.
      */
-    static private int port = 3337;
+    static private int port = 11059;
     
     static Crafter bot;
     static Crafter commander;
@@ -78,7 +78,7 @@ public class TestsCrafting {
     @Test
     public void testOpenWorkbench() throws InterruptedException, MinecraftException {
         commander.getChat().sendMessage("open inventory workbench");
-        Thread.sleep(250);
+        Thread.sleep(500);
         Assert.assertTrue(bot.getInventoryManager().getCurrentInventory().getInventoryType().equals(InventoryType.WORKBENCH));
     }
     

@@ -77,7 +77,7 @@ public class ChestHandler implements IInventoryStorage {
     @Override
     public void setSlot(byte type, byte slot, int id, byte meta, byte count) {
         System.out.println("SETTING SLOT type: " + type + " slot: " + slot + " id: " + id + " meta: " + meta + " count: " + count);
-        if (slot != -1) {
+        if (slot != -1 && id != -1 && count > 0) {
             if(slot <= END_INDEX_CHEST_ITEMS_1) 
                 chestItems[slot] = new Slot(slot, id, count);
             else if (slot <= END_INDEX_MAIN_INVENTORY_2) 
@@ -122,6 +122,7 @@ public class ChestHandler implements IInventoryStorage {
     @Override
     public short getIndex(Id id) {
         for (int i = 0; i < chestItems.length; i++) {
+            if (chestItems[i] != null) System.out.println("Chest item slot: " + i + " id: " + chestItems[i].getId() + " wanted id: " + id);
             if(chestItems[i] != null && chestItems[i].getId().equals(id)) return (short)(i);
         }
         for (int i = 0; i < mainInventory.length; i++) {
@@ -151,6 +152,7 @@ public class ChestHandler implements IInventoryStorage {
         return START_INDEX_HOTBAR_3;
     }
     
+    @Override
     public int getMyInventoryIndex(Id id) {
         for (int i = 0; i < mainInventory.length; i++) {
             if(mainInventory[i] != null && mainInventory[i].getId() != null && mainInventory[i].getId().getValue() == id.getValue()) return i + START_INDEX_MAIN_INVENTORY_2;

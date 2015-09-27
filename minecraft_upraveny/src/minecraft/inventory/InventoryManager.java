@@ -460,9 +460,18 @@ public class InventoryManager implements IInventoryHandler {
         if(slot != null) {
             out0EClickWindow.sendMessageForceEmpty(currentInventory.getWindowId(), (short)index, (byte)1, (byte)4);
             currentInventory.setSlotEmpty(index);
+        } 
+    }
+    
+    public Slot[] getMyInventoryCopy() {
+        Slot[] result = new Slot[36];
+        for (int i = 0; i < mainInventoryItems.length; i++) {
+            if (mainInventoryItems[i] != null) result[i] = mainInventoryItems[i].getCopy();
         }
-        
-        
+        for (int i = 0; i < hotbarItems.length; i++) {
+            if (hotbarItems[i] != null) result[i] = hotbarItems[i].getCopy();
+        }
+        return result;
     }
 
     @Override
